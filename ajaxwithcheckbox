@@ -1,1 +1,55 @@
+console.js(file)
+----------------
+
+$(document).ready(function() {
+  $(document).on('click','input#test',function(e){ 
+
+  $.ajax({
+      url: baseUrl+'restaurant/'+this.dataset.restaurantId,
+      method:'GET',
+      success: function(data){ 
+             // alert(data); 
+          }
+      });
+   });
+ });
+--------------------
+   @if( $value->is_active == "1" )
+                <label class="switch">
+  <input type="checkbox" data-restaurant-id="{{$value->id}}" name="checkboxStatus" id="test" value="0" checked="checked" >
+  <span class="slider round"></span>
+</label>  
+ @else
+   <label class="switch">
+  <input type="checkbox" data-restaurant-id="{{$value->id}}" name="test" id="test" value="1">
+  <span class="slider round"></span>
+</label>  
+                  @endif
+--------------------------------------
+Restaurant controller
+-------------------------
+public function restaurantactive($restaurant_id){
+
+
+ $UpdateDetails = Restaurant::where('id',$restaurant_id)->first();
+
+      $UpdateDetails->is_active = ($UpdateDetails->is_active=="0") ? "1" : "0";
+      $UpdateDetails->save();
+   
+
+
+}
+
+public function index(Request $request)
+  {   
+      $pagetitle = "Restaurant";
+
+      $all_restaurant = Restaurant::paginate(10);
+      
+      return View::make('pages.restaurant.restaurants')
+      ->with('all_restaurant',$all_restaurant)
+      ->with('pagetitle',$pagetitle);
+  }
+  
+-----------------------
 

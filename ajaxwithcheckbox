@@ -14,6 +14,8 @@ $(document).ready(function() {
    });
  });
 --------------------
+view section(pages/restaurant/list-restaurant.blade)
+---------------
    @if( $value->is_active == "1" )
                 <label class="switch">
   <input type="checkbox" data-restaurant-id="{{$value->id}}" name="checkboxStatus" id="test" value="0" checked="checked" >
